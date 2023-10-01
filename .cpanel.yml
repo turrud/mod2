@@ -3,3 +3,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/u1575278/public_html/omahin
     - /bin/cp index.html $DEPLOYPATH
+    - /bin/cp 1.zip $DEPLOYPATH
