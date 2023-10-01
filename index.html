@@ -3,103 +3,179 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>modul2-PBO</title>
+    <title>modul3-PBO</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
     <div class="container mt-5">
       <div class="row">
         <div class="col">
-          <textarea cols="52" rows="43">
-          Scanner input = new Scanner(System.in);
-  
-          System.out.print("Masukkan jumlah baris (A): ");
-          int A = input.nextInt();
-  
-          System.out.print("Masukkan jumlah kolom (B): ");
-          int B = input.nextInt();
-  
-          int[][] matrix = new int[A][B];
-  
-          System.out.println("Masukkan isi matriks:");
-  
-          // Mengisi matriks
-          for (int i = 0; i < A; i++) {
-              for (int j = 0; j < B; j++) {
-                  matrix[i][j] = input.nextInt();
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              public String title, artist;
+              public int duration;
+              
+              public void setTitle_1301194122(String title) {
+                  if (title != null && !title.isEmpty()) {
+                      this.title = title;
+                  }
+                  else {
+                      System.out.println("Title tidak boleh kosong");
+                  }
               }
-          }
-  
-          System.out.println("Matriks AxB:");
-          System.out.println("A: " + A);
-          System.out.println("B: " + B);
-  
-          // Menampilkan matriks
-          for (int i = 0; i < A; i++) {
-              for (int j = 0; j < B; j++) {
-                  System.out.print(matrix[i][j] + " ");
+              
+              public void setArtist_1301194122(String artist) {
+                  if (artist != null && !artist.isEmpty()) {
+                      this.artist = artist;
+                  }
+                  else {
+                      System.out.println("Artist Tidak boleh kosong");
+                  }
               }
-              System.out.println();
-          }
-  
-          System.out.println("Hasil transpose:");
-  
-          // Menampilkan matriks transpose
-          for (int j = 0; j < B; j++) {
-              for (int i = 0; i < A; i++) {
-                  System.out.print(matrix[i][j] + " ");
+              
+              public void setDuration_1301194122(int duration) {
+                  if (duration > 0 && duration <= 300) {
+                      this.duration = duration;
+                  }
+                  else {
+                      System.out.println("Duration harus berisi nilai 0-300 detik");
+                  }
               }
-              System.out.println();
-          }
-  
-          input.close();
-        </textarea>
+              
+              public String getTitle_1301194122() {
+                  return title;
+              }
+              
+              public String getArtist_1301194122() {
+                  return artist;
+              }
+              
+              public String getDuration_1301194122() {
+                  int menit = this.duration /60;
+                  int detik = this.duration % 60;
+                  if (detik >= 10) {
+                      return "0" + menit + ":" + detik;
+                  }
+                  return "0" + menit + ":0" + detik;
+              }
+              
+              public void play_1301194122() {
+                  double duration = this.duration;
+                  duration = duration / 60.0;
+                  if (duration > 0 && duration < 2) {
+                      System.out.println("Short");
+                  }
+                  else if (duration >= 2 && duration <= 4) {
+                      System.out.println("Intermediate");
+                  }
+                  else {
+                      System.out.println("Long");
+                  }
+              }
+            </textarea>
+            <label for="floatingTextarea2">Song</label>
+          </div>
         </div>
         <div class="col">
-          <textarea cols="108" rows="43">
-            Scanner input = new Scanner(System.in);
-
-            // Membuat array 2 dimensi dengan jumlah baris 4
-            int[][] array2D = new int[4][];
-
-            // Inisialisasi array untuk setiap baris
-            array2D[0] = new int[] { 5, 10, 15 };
-            array2D[1] = new int[] { 2, 4, 6, 8 };
-            array2D[2] = new int[] { 1, 4, 9, 16, 25 };
-            array2D[3] = new int[] { 3, 4, 5, 6, 7, 8 };
-
-            // Menampilkan array 2D
-            System.out.println("Array 2D:");
-            for (int i = 0; i < array2D.length; i++) {
-                for (int j = 0; j < array2D[i].length; j++) {
-                    System.out.print(array2D[i][j] + " ");
-                }
-                System.out.println();
-            }
-
-            System.out.print("Masukkan nilai yang ingin dicari: ");
-            int target = input.nextInt();
-
-            // Mencari nilai dalam array 2D
-            boolean found = false;
-            for (int i = 0; i < array2D.length; i++) {
-                for (int j = 0; j < array2D[i].length; j++) {
-                    if (array2D[i][j] == target) {
-                        System.out.println("Nilai " + target + " ditemukan pada baris ke-" + (i + 1) + " kolom ke-" + (j + 1));
-                        found = true;
-                    }
-                }
-            }
-
-            if (!found) {
-                System.out.println("Nilai " + target + " tidak ditemukan dalam array 2D.");
-            }
-
-            input.close();
-        </textarea>
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              public String title;
+              public int year;
+              public int track = 0;
+              public Song[] songs;
+              
+              public void setTitle(String title) {
+                  if (title != null && !title.isEmpty()) {
+                      this.title = title;
+                  }
+                  else {
+                      System.out.println("Title tidak boleh kosong");
+                  }
+              }
+              
+              public void setYear(int year) {
+                  this.year = year;
+              }
+              
+              public void setTotalSongs(int total) {
+                  if (total > 0) {
+                      this.songs = new Song[total];
+                  }
+              }
+              
+              public String getTitle() {
+                  return title;
+              }
+              
+              public int getYear() {
+                  return year;
+              }
+              
+              public void addSong(Song song) {
+                  System.out.println("------------***Add Song***------------");
+                  System.out.println("Title\t: " + song.getTitle());
+                  System.out.println("Artist\t: " + song.getArtist());
+                  System.out.println("Duration: " + song.getDuration());
+                  System.out.print("Kategori: ");
+                  song.play();
+                  if (this.track < this.songs.length) {
+                      this.songs[this.track] = song;
+                      this.track++;
+                      System.out.println("Song " + song.getTitle() + " berhasil ditambahkan");
+                  }
+                  else {
+                      System.out.println("Gagal , Songs list penuh");
+                  }
+              }
+              
+              public void displayInfo() {
+                  System.out.println("------------***Album Info***------------");
+                  System.out.println("Title\t: " + this.getTitle());
+                  System.out.println("Year\t: " + this.getYear());
+                  System.out.println("Song List: ");
+                  
+                  for (int i = 0; i < this.track; i++) {
+                      System.out.println((i + 1) + ".\tTitle\t: " + this.songs[i].getTitle());
+                      System.out.println("\tArtist\t: " + this.songs[i].getArtist());
+                      System.out.println("\tDuration: " + this.songs[i].getDuration());
+                      System.out.println("\tKategori: ");
+                      this.songs[i].play();
+                  }
+              }
+            </textarea>
+            <label for="floatingTextarea2">Album</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              Song song1 = new Song();
+              Song song2 = new Song();
+              
+              song1.setTitle("Melukis senja");
+              song1.setArtist("Budi Doremi");
+              song1.setDuration(240);
+              
+              song2.setTitle("Photograph");
+              song2.setArtist("Ed Sheeran");
+              song2.setDuration(274);
+              
+              Album album = new Album();
+              album.setTitle("Pernah Hits");
+              album.setYear(2021);
+              album.setTotalSongs(2);
+              album.addSong(song1);
+              album.addSong(song2);
+              
+              album.displayInfo();
+            </textarea>
+            <label for="floatingTextarea2">DriverAlbum</label>
+          </div>
         </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
 </html>
+
+
