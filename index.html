@@ -10,7 +10,201 @@
   <body>
     <div class="container mt-5">
       <div class="row">
+
         <div class="col-md-4">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              #Nama : Made Mita Wikantari
+              #NIM  : 1301194047
+
+              # import library socket karena akan menggunakan IPC socket
+              import socket
+
+              # definisikan tujuan IP server
+              TCP_IP = '127.0.0.1'
+
+              # definisikan port dari server yang akan terhubung
+              TCP_PORT = 3398
+
+              # definisikan ukuran buffer untuk mengirimkan pesan
+              BUFFER_SIZE = 1024
+
+              # definisikan pesan yang akan disampaikan
+              PESAN = "HELLO GUYS!"
+
+              # buat socket TCP
+              s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+              # lakukan koneksi ke server dengan parameter IP dan Port yang telah didefinisikan
+              s.connect((TCP_IP, TCP_PORT))
+
+              # kirim pesan ke server
+              s.send(PESAN.encode())
+
+              # terima pesan dari server
+              data = s.recv(BUFFER_SIZE)
+
+              # tampilkan pesan/reply dari server
+              print('Data= ', data.decode())
+
+              # tutup koneksi
+              s.close
+
+
+
+            </textarea>
+            <label for="floatingTextarea2">01.tugas_tcp_client.py</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              #Nama : Made Mita Wikantari
+              #NIM  : 1301194047
+
+              # import library socket karena akan menggunakan IPC socket
+              import socket
+
+
+              # definisikan alamat IP binding  yang akan digunakan 
+              TCP_IP = '127.0.0.1'
+
+
+              # definisikan port number binding  yang akan digunakan 
+              TCP_PORT = 5005
+
+
+              # definisikan ukuran buffer untuk mengirimkan pesan
+              BUFFER_SIZE = 1024
+
+
+              # buat socket bertipe TCP
+              s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+
+              # lakukan bind
+              s.bind((TCP_IP, TCP_PORT))
+
+
+              # server akan listen menunggu hingga ada koneksi dari client
+              s.listen(1)
+
+              # lakukan loop forever
+              while 1:
+                # menerima koneksi
+                  conn , addr = s.accept ()
+                
+                
+                # menampilkan koneksi berupa IP dan port client yang terhubung menggunakan print
+                  print("alamat = ",addr)
+                
+                # menerima data berdasarkan ukuran buffer
+                  data = conn.recv(BUFFER_SIZE)
+                
+                
+                # menampilkan pesan yang diterima oleh server menggunakan print
+                  print("Data Diterima = ", data.decode())
+                
+                # mengirim kembali data yang diterima dari client kepada client
+                  conn.send(data)
+
+              # tutup koneksi	
+              s.close
+            </textarea>
+            <label for="floatingTextarea2">01.tugas_tcp_server.py</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              #Nama : Made Mita Wikantari
+              #NIM  : 1301194047
+
+              # import library socket karena akan menggunakan IPC socket
+              import socket
+
+              # definisikan target IP server yang akan dituju
+              UDP_IP = "127.0.0.1"
+
+              # definisikan target port number server yang akan dituju
+              UDP_PORT = 5005
+              PESAN = "Sispala Bhuana Mandala !"
+
+              #print ("target IP:", UDP_IP)
+              print ("target IP:", UDP_IP)
+
+              #print ("target port:", UDP_PORT)
+              print ("target port:", UDP_PORT)
+
+              #print ("pesan:", PESAN)
+              print ("Pesan:", PESAN)
+
+              # buat socket bertipe UDP
+              sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+              # lakukan loop 10 kali
+              for x in range (10):
+                  # definisikan pesan yang akan dikirim
+                  pesan = "Salam Lestari!"    
+                  
+                  # kirim pesan    
+                  sock.sendto(pesan.encode(),(UDP_IP,UDP_PORT))
+            </textarea>
+            <label for="floatingTextarea2">02.tugas_udp_client.py</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              #Nama : Made Mita Wikantari
+              #NIM  : 1301194047
+
+              # import library socket karena akan menggunakan IPC socket
+              import socket
+
+              # definisikan alamat IP bind dari server
+              UDP_IP = "127.0.0.1"
+
+              # definisikan port number untuk bind dari server
+              UDP_PORT = 5005
+
+              # buat socket bertipe UDP
+              sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+              # lakukan bind
+              sock.bind ((UDP_IP, UDP_PORT))
+
+              # loop forever
+              while True:
+                  # terima pesan dari client
+                  data, addr = sock.recvfrom(1024)    
+                  
+                  # menampilkan hasil pesan dari client
+                  print("Paketnya sudah diterima: ", data.decode())
+
+                  #print (addr)
+                  print.addr
+                  
+
+            </textarea>
+            <label for="floatingTextarea2">02.tugas_udp_server.py</label>
+          </div>
+        </div>
+
+        <!-- <div class="col-md-4">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+
+            </textarea>
+            <label for="floatingTextarea2"></label>
+          </div>
+        </div> -->
+
+
+
+
+
+        <!-- <div class="col-md-4">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
               public String title, artist;
@@ -76,8 +270,8 @@
             </textarea>
             <label for="floatingTextarea2">Song</label>
           </div>
-        </div>
-        <div class="col-md-4">
+        </div> -->
+        <!-- <div class="col-md-4">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
               public String title;
@@ -146,8 +340,8 @@
             </textarea>
             <label for="floatingTextarea2">Album</label>
           </div>
-        </div>
-        <div class="col-md-4">
+        </div> -->
+        <!-- <div class="col-md-4">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
               Song song1 = new Song();
@@ -172,13 +366,18 @@
             </textarea>
             <label for="floatingTextarea2">DriverAlbum</label>
           </div>
-        </div>
-        <div class="col-md-4 mt-5">
-          <div class="">
-            <a href="1.zip"><i class="bi bi-cloud-arrow-down-fill"></i></a>
-          </div>
-        </div>
+        </div> -->
         
+
+
+        <!-- <div class="col-md-4">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+
+            </textarea>
+            <label for="floatingTextarea2">sister</label>
+          </div>
+        </div> -->
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
