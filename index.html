@@ -11,200 +11,10 @@
     <div class="container mt-5">
       <div class="row">
 
-        <div class="col-md-6 mb-2">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              #Nama : Made Mita Wikantari
-              #NIM  : 1301194047
-
-              # import library socket karena akan menggunakan IPC socket
-              import socket
-
-              # definisikan tujuan IP server
-              TCP_IP = '127.0.0.1'
-
-              # definisikan port dari server yang akan terhubung
-              TCP_PORT = 3398
-
-              # definisikan ukuran buffer untuk mengirimkan pesan
-              BUFFER_SIZE = 1024
-
-              # definisikan pesan yang akan disampaikan
-              PESAN = "HELLO GUYS!"
-
-              # buat socket TCP
-              s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-              # lakukan koneksi ke server dengan parameter IP dan Port yang telah didefinisikan
-              s.connect((TCP_IP, TCP_PORT))
-
-              # kirim pesan ke server
-              s.send(PESAN.encode())
-
-              # terima pesan dari server
-              data = s.recv(BUFFER_SIZE)
-
-              # tampilkan pesan/reply dari server
-              print('Data= ', data.decode())
-
-              # tutup koneksi
-              s.close
 
 
 
-            </textarea>
-            <label for="floatingTextarea2">01.tugas_tcp_client.py</label>
-          </div>
-        </div>
-        <div class="col-md-6 mb-2">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              #Nama : Made Mita Wikantari
-              #NIM  : 1301194047
-
-              # import library socket karena akan menggunakan IPC socket
-              import socket
-
-
-              # definisikan alamat IP binding  yang akan digunakan 
-              TCP_IP = '127.0.0.1'
-
-
-              # definisikan port number binding  yang akan digunakan 
-              TCP_PORT = 5005
-
-
-              # definisikan ukuran buffer untuk mengirimkan pesan
-              BUFFER_SIZE = 1024
-
-
-              # buat socket bertipe TCP
-              s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-
-              # lakukan bind
-              s.bind((TCP_IP, TCP_PORT))
-
-
-              # server akan listen menunggu hingga ada koneksi dari client
-              s.listen(1)
-
-              # lakukan loop forever
-              while 1:
-                # menerima koneksi
-                  conn , addr = s.accept ()
-                
-                
-                # menampilkan koneksi berupa IP dan port client yang terhubung menggunakan print
-                  print("alamat = ",addr)
-                
-                # menerima data berdasarkan ukuran buffer
-                  data = conn.recv(BUFFER_SIZE)
-                
-                
-                # menampilkan pesan yang diterima oleh server menggunakan print
-                  print("Data Diterima = ", data.decode())
-                
-                # mengirim kembali data yang diterima dari client kepada client
-                  conn.send(data)
-
-              # tutup koneksi	
-              s.close
-            </textarea>
-            <label for="floatingTextarea2">01.tugas_tcp_server.py</label>
-          </div>
-        </div>
-        <div class="col-md-6 mb-2">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              #Nama : Made Mita Wikantari
-              #NIM  : 1301194047
-
-              # import library socket karena akan menggunakan IPC socket
-              import socket
-
-              # definisikan target IP server yang akan dituju
-              UDP_IP = "127.0.0.1"
-
-              # definisikan target port number server yang akan dituju
-              UDP_PORT = 5005
-              PESAN = "Sispala Bhuana Mandala !"
-
-              #print ("target IP:", UDP_IP)
-              print ("target IP:", UDP_IP)
-
-              #print ("target port:", UDP_PORT)
-              print ("target port:", UDP_PORT)
-
-              #print ("pesan:", PESAN)
-              print ("Pesan:", PESAN)
-
-              # buat socket bertipe UDP
-              sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-
-              # lakukan loop 10 kali
-              for x in range (10):
-                  # definisikan pesan yang akan dikirim
-                  pesan = "Salam Lestari!"    
-                  
-                  # kirim pesan    
-                  sock.sendto(pesan.encode(),(UDP_IP,UDP_PORT))
-            </textarea>
-            <label for="floatingTextarea2">02.tugas_udp_client.py</label>
-          </div>
-        </div>
-        <div class="col-md-6 mb-2">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              #Nama : Made Mita Wikantari
-              #NIM  : 1301194047
-
-              # import library socket karena akan menggunakan IPC socket
-              import socket
-
-              # definisikan alamat IP bind dari server
-              UDP_IP = "127.0.0.1"
-
-              # definisikan port number untuk bind dari server
-              UDP_PORT = 5005
-
-              # buat socket bertipe UDP
-              sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-
-              # lakukan bind
-              sock.bind ((UDP_IP, UDP_PORT))
-
-              # loop forever
-              while True:
-                  # terima pesan dari client
-                  data, addr = sock.recvfrom(1024)    
-                  
-                  # menampilkan hasil pesan dari client
-                  print("Paketnya sudah diterima: ", data.decode())
-
-                  #print (addr)
-                  print.addr
-                  
-
-            </textarea>
-            <label for="floatingTextarea2">02.tugas_udp_server.py</label>
-          </div>
-        </div>
-
-        <!-- <div class="col-md-4">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-
-            </textarea>
-            <label for="floatingTextarea2"></label>
-          </div>
-        </div> -->
-
-
-
-
-
-        <!-- <div class="col-md-4">
+        <div class="col-md-4 mb-5">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
               public String title, artist;
@@ -268,10 +78,10 @@
                   }
               }
             </textarea>
-            <label for="floatingTextarea2">Song</label>
+            <label for="floatingTextarea2">Song mod3</label>
           </div>
-        </div> -->
-        <!-- <div class="col-md-4">
+        </div>
+        <div class="col-md-4 mb-5">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
               public String title;
@@ -340,8 +150,8 @@
             </textarea>
             <label for="floatingTextarea2">Album</label>
           </div>
-        </div> -->
-        <!-- <div class="col-md-4">
+        </div>
+        <div class="col-md-4 mb-5">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
               Song song1 = new Song();
@@ -366,7 +176,160 @@
             </textarea>
             <label for="floatingTextarea2">DriverAlbum</label>
           </div>
-        </div> -->
+        </div>
+        <div class="col-md-4 mb-5">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              package jobs;
+              import java.text.DateFormat;
+              import java.text.ParseException;
+              import java.text.SimpleDateFormat;
+              import java.util.Date;
+              import java.time.LocalDate;
+
+          public class Artis {
+              private String name;
+              private Date birthdate = new Date();
+              private int age;
+              
+              public Artis(String n, String _birthdate) throws ParseException {
+                  SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd");
+                  this.name = n;
+                  this.birthdate = temp.parse(_birthdate);
+                  this.age = LocalDate.now().getYear() - (birthdate.getYear() + 1900); 
+              }
+              
+              public void setName(String input) {
+                  this.name = input; 
+              }
+              
+              public void setBirthdate(Date input) {
+                  this.birthdate = input;
+              }
+              
+              public void setAge(int input) {
+                  this.age = input; 
+              }
+              
+              public String getName() {
+                  return name; 
+              }
+              
+              public String getBirthdate() {
+                  DateFormat dateFormat =  new SimpleDateFormat("dd-MMMM-yyyy");
+                  String bd = dateFormat.format(birthdate);
+                  return bd;
+              }
+              
+              public int getAge() {
+                  return age;
+                  
+              }
+              
+              public void displayinfo(){
+                  System.out.println();
+                  System.out.println("Artist Name : " + this.name);
+                  System.out.println("Birth Date : " + getBirthdate());
+                  System.out.println("Age : " + this.age);
+              }
+
+          }
+
+            </textarea>
+            <label for="floatingTextarea2">mod4 Artist</label>
+          </div>
+        </div>
+        <div class="col-md-4 mb-5">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              package arts;
+                  import java.text.DateFormat;
+                  import java.text.ParseException;
+                  import java.text.SimpleDateFormat;
+                  import java.util.Date;
+                  import java.time.LocalDate;
+              import jobs.Artis;
+
+              public class Song {
+                  private String title;
+                  private Artis artist;
+                  private Date release = new Date();
+                  
+                  public Song(String t, Artis a, String _release) throws ParseException {
+                      SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd");
+                      this.title = t;
+                      this.artist = a;
+                      this.release = temp.parse(_release);
+                  }
+                      public void setTitle(String input) {
+                          this.title = input;
+                      }
+                      
+                      public void setArtis(Artis input) {
+                          this.artist = input;
+                      }
+                      
+                      public void setRelease(Date input) {
+                          this.release = input;
+                      }
+                      
+                      public String getTitle() {
+                          return title;
+                      }
+                      
+                      public Artis getArtis() {
+                          return artist;
+                      }
+                      
+                      public Date getRelease() {
+                          return release;
+                      }
+                      
+                      public void displayinfo() {
+                          int year_song = release.getYear()+1900;
+                          int age_released = artist.getAge();
+                          year_song = LocalDate.now().getYear() - year_song;
+                          age_released = age_released - year_song;
+                          DateFormat dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
+                          String release_string = dateFormat.format(release);
+                          String reelase_string = dateFormat.format(release);
+                          
+                          System.out.println();
+                          System.out.println("Ttile : " + title);
+                          System.out.println("Artist : " + artist.getName());
+                          System.out.println("Release : " + release_string);
+                          System.out.println("Artist age is " + age_released + " When Song Released");
+                      }
+                  }
+            </textarea>
+            <label for="floatingTextarea2">Song</label>
+          </div>
+        </div>
+        <div class="col-md-4 mb-5">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+              package drivemusic;
+              import jobs.Artis;
+              import Artist.Song;
+              import java.text.ParseException;
+
+              public class DriverSong {
+                  
+                  public static void main(String[] args) throws ParseException{
+                      Artis a1 = new Artis("Budi Doremi", "1984-09-19");
+                      Artis a2 = new Artis("Ed Sheeran", "1991-02-17");
+                      a1.displayinfo();
+                      a2.displayinfo();
+                      Song song1 = new Song("Melukis Senja", a1, "2020-06-29");
+                      Song song2 = new Song("Photograph", a2, "2015-05-10");
+                      song1.displayinfo();
+                      song2.displayinfo();   
+                  }   
+              }
+            </textarea>
+            <label for="floatingTextarea2">DriverMusic</label>
+          </div>
+        </div>
         
 
 
