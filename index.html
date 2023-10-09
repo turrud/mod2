@@ -10,337 +10,175 @@
   <body>
     <div class="container mt-5">
       <div class="row">
-
-
-
-
-        <div class="col-md-4 mb-5">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              public String title, artist;
-              public int duration;
-              
-              public void setTitle_1301194122(String title) {
-                  if (title != null && !title.isEmpty()) {
-                      this.title = title;
-                  }
-                  else {
-                      System.out.println("Title tidak boleh kosong");
-                  }
-              }
-              
-              public void setArtist_1301194122(String artist) {
-                  if (artist != null && !artist.isEmpty()) {
-                      this.artist = artist;
-                  }
-                  else {
-                      System.out.println("Artist Tidak boleh kosong");
-                  }
-              }
-              
-              public void setDuration_1301194122(int duration) {
-                  if (duration > 0 && duration <= 300) {
-                      this.duration = duration;
-                  }
-                  else {
-                      System.out.println("Duration harus berisi nilai 0-300 detik");
-                  }
-              }
-              
-              public String getTitle_1301194122() {
-                  return title;
-              }
-              
-              public String getArtist_1301194122() {
-                  return artist;
-              }
-              
-              public String getDuration_1301194122() {
-                  int menit = this.duration /60;
-                  int detik = this.duration % 60;
-                  if (detik >= 10) {
-                      return "0" + menit + ":" + detik;
-                  }
-                  return "0" + menit + ":0" + detik;
-              }
-              
-              public void play_1301194122() {
-                  double duration = this.duration;
-                  duration = duration / 60.0;
-                  if (duration > 0 && duration < 2) {
-                      System.out.println("Short");
-                  }
-                  else if (duration >= 2 && duration <= 4) {
-                      System.out.println("Intermediate");
-                  }
-                  else {
-                      System.out.println("Long");
-                  }
-              }
-            </textarea>
-            <label for="floatingTextarea2">Song mod3</label>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              public String title;
-              public int year;
-              public int track = 0;
-              public Song[] songs;
-              
-              public void setTitle(String title) {
-                  if (title != null && !title.isEmpty()) {
-                      this.title = title;
-                  }
-                  else {
-                      System.out.println("Title tidak boleh kosong");
-                  }
-              }
-              
-              public void setYear(int year) {
-                  this.year = year;
-              }
-              
-              public void setTotalSongs(int total) {
-                  if (total > 0) {
-                      this.songs = new Song[total];
-                  }
-              }
-              
-              public String getTitle() {
-                  return title;
-              }
-              
-              public int getYear() {
-                  return year;
-              }
-              
-              public void addSong(Song song) {
-                  System.out.println("------------***Add Song***------------");
-                  System.out.println("Title\t: " + song.getTitle());
-                  System.out.println("Artist\t: " + song.getArtist());
-                  System.out.println("Duration: " + song.getDuration());
-                  System.out.print("Kategori: ");
-                  song.play();
-                  if (this.track < this.songs.length) {
-                      this.songs[this.track] = song;
-                      this.track++;
-                      System.out.println("Song " + song.getTitle() + " berhasil ditambahkan");
-                  }
-                  else {
-                      System.out.println("Gagal , Songs list penuh");
-                  }
-              }
-              
-              public void displayInfo() {
-                  System.out.println("------------***Album Info***------------");
-                  System.out.println("Title\t: " + this.getTitle());
-                  System.out.println("Year\t: " + this.getYear());
-                  System.out.println("Song List: ");
-                  
-                  for (int i = 0; i < this.track; i++) {
-                      System.out.println((i + 1) + ".\tTitle\t: " + this.songs[i].getTitle());
-                      System.out.println("\tArtist\t: " + this.songs[i].getArtist());
-                      System.out.println("\tDuration: " + this.songs[i].getDuration());
-                      System.out.println("\tKategori: ");
-                      this.songs[i].play();
-                  }
-              }
-            </textarea>
-            <label for="floatingTextarea2">Album</label>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              Song song1 = new Song();
-              Song song2 = new Song();
-              
-              song1.setTitle("Melukis senja");
-              song1.setArtist("Budi Doremi");
-              song1.setDuration(240);
-              
-              song2.setTitle("Photograph");
-              song2.setArtist("Ed Sheeran");
-              song2.setDuration(274);
-              
-              Album album = new Album();
-              album.setTitle("Pernah Hits");
-              album.setYear(2021);
-              album.setTotalSongs(2);
-              album.addSong(song1);
-              album.addSong(song2);
-              
-              album.displayInfo();
-            </textarea>
-            <label for="floatingTextarea2">DriverAlbum</label>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              package jobs;
-              import java.text.DateFormat;
-              import java.text.ParseException;
-              import java.text.SimpleDateFormat;
-              import java.util.Date;
-              import java.time.LocalDate;
-
-          public class Artis {
-              private String name;
-              private Date birthdate = new Date();
-              private int age;
-              
-              public Artis(String n, String _birthdate) throws ParseException {
-                  SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd");
-                  this.name = n;
-                  this.birthdate = temp.parse(_birthdate);
-                  this.age = LocalDate.now().getYear() - (birthdate.getYear() + 1900); 
-              }
-              
-              public void setName(String input) {
-                  this.name = input; 
-              }
-              
-              public void setBirthdate(Date input) {
-                  this.birthdate = input;
-              }
-              
-              public void setAge(int input) {
-                  this.age = input; 
-              }
-              
-              public String getName() {
-                  return name; 
-              }
-              
-              public String getBirthdate() {
-                  DateFormat dateFormat =  new SimpleDateFormat("dd-MMMM-yyyy");
-                  String bd = dateFormat.format(birthdate);
-                  return bd;
-              }
-              
-              public int getAge() {
-                  return age;
-                  
-              }
-              
-              public void displayinfo(){
-                  System.out.println();
-                  System.out.println("Artist Name : " + this.name);
-                  System.out.println("Birth Date : " + getBirthdate());
-                  System.out.println("Age : " + this.age);
-              }
-
-          }
-
-            </textarea>
-            <label for="floatingTextarea2">mod4 Artist</label>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              package arts;
-                  import java.text.DateFormat;
-                  import java.text.ParseException;
-                  import java.text.SimpleDateFormat;
-                  import java.util.Date;
-                  import java.time.LocalDate;
-              import jobs.Artis;
-
-              public class Song {
-                  private String title;
-                  private Artis artist;
-                  private Date release = new Date();
-                  
-                  public Song(String t, Artis a, String _release) throws ParseException {
-                      SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd");
-                      this.title = t;
-                      this.artist = a;
-                      this.release = temp.parse(_release);
-                  }
-                      public void setTitle(String input) {
-                          this.title = input;
-                      }
-                      
-                      public void setArtis(Artis input) {
-                          this.artist = input;
-                      }
-                      
-                      public void setRelease(Date input) {
-                          this.release = input;
-                      }
-                      
-                      public String getTitle() {
-                          return title;
-                      }
-                      
-                      public Artis getArtis() {
-                          return artist;
-                      }
-                      
-                      public Date getRelease() {
-                          return release;
-                      }
-                      
-                      public void displayinfo() {
-                          int year_song = release.getYear()+1900;
-                          int age_released = artist.getAge();
-                          year_song = LocalDate.now().getYear() - year_song;
-                          age_released = age_released - year_song;
-                          DateFormat dateFormat = new SimpleDateFormat("dd-MMMM-yyyy");
-                          String release_string = dateFormat.format(release);
-                          String reelase_string = dateFormat.format(release);
-                          
-                          System.out.println();
-                          System.out.println("Ttile : " + title);
-                          System.out.println("Artist : " + artist.getName());
-                          System.out.println("Release : " + release_string);
-                          System.out.println("Artist age is " + age_released + " When Song Released");
-                      }
-                  }
-            </textarea>
-            <label for="floatingTextarea2">Song</label>
-          </div>
-        </div>
-        <div class="col-md-4 mb-5">
-          <div class="form-floating">
-            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              package drivemusic;
-              import jobs.Artis;
-              import Artist.Song;
-              import java.text.ParseException;
-
-              public class DriverSong {
-                  
-                  public static void main(String[] args) throws ParseException{
-                      Artis a1 = new Artis("Budi Doremi", "1984-09-19");
-                      Artis a2 = new Artis("Ed Sheeran", "1991-02-17");
-                      a1.displayinfo();
-                      a2.displayinfo();
-                      Song song1 = new Song("Melukis Senja", a1, "2020-06-29");
-                      Song song2 = new Song("Photograph", a2, "2015-05-10");
-                      song1.displayinfo();
-                      song2.displayinfo();   
-                  }   
-              }
-            </textarea>
-            <label for="floatingTextarea2">DriverMusic</label>
-          </div>
-        </div>
         
-
-
-        <!-- <div class="col-md-4">
+        <div class="col-md-6">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+                # import library xmlrpc client karena akan digunakan rpc
+                import xmlrpc.client
+                # buat stub/skeleton (proxy) pada client
+                s = xmlrpc.client.ServerProxy('http://127.0.0.1:8008')
+                # panggil fungsi pow() yang ada di komputer remote 
+                print(s.pow(2,3)) # Returns 2**3 = 8
+                # panggil fungsi add() yang ada di komputer remote
+                print(s.add(2,3)) # Returns 5
+                # panggil fungsi mul() yang ada di komputer remote
+                print(s.mul(5,3)) # Returns 5*2 = 10
+                # print semua fungsi yang ada di komputer remote (optional)
+                print(s.system.listMethods())
 
             </textarea>
-            <label for="floatingTextarea2">sister</label>
+            <label for="floatingTextarea2">01.voting_client.py</label>
           </div>
-        </div> -->
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+                # gunakan xmlrpc bagian server
+                # import SimpleXMLRPCServer dan SimpleXMLRPCRequestHandler
+                from xmlrpc.server import SimpleXMLRPCServer
+                from xmlrpc.server import SimpleXMLRPCRequestHandler
+                # buat kelas requesthandler 
+                # batasi pada path /RPC2 saja
+                class RequestHandler(SimpleXMLRPCRequestHandler):
+                rpc_paths = ('/RPC2',)
+                # buat server serta register fungsi 
+                register_introspection_functions()
+                with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler=RequestHandler) as server:
+                    server.register_introspection_functions()
+
+                # cara 1 untuk memasukkan fungsi dalam server adalah dengan langsung
+                # memasukkan Namanya.
+                # fungsi pow() merupakan fungsi build in pada pyhton, tinggal
+                # dipanggil saja.
+                server.register_function(pow)
+                # cara 2 untuk register fungsi: buat fungsinya kemudian register
+                # a. buat fungsi
+                def adder_function(x,y):
+                    return x + y
+                # b. register fungsinya
+                server.register_function(adder_function, 'add')
+                # cara 3: tidak hanya fungsi, class juga bisa diregisterkan
+                class MyFuncs:
+                def mul(self, x, y):
+                    return x * y
+                server.register_instance(MyFuncs())
+                # jalankan server
+                server.serve_forever()
+
+            </textarea>
+            <label for="floatingTextarea2">01.voting_server.py</label>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+                # import xmlrpc bagian client saja
+                import xmlrpc.client
+
+                # buat stub (proxy) untuk client
+                s = xmlrpc.client.ServerProxy('http://127.0.0.1:8008')
+
+                # lakukan pemanggilan fungsi vote("nama_kandidat") yang ada di server
+                s.vote('Made Mita')
+
+                # lakukan pemanggilan fungsi querry() untuk mengetahui hasil persentase dari masing-masing kandidat
+                hasil = s.querry()
+
+                # lakukan pemanggilan fungsi lain terserah Anda
+                for i in range(0, len(hasil[0])):
+                    print(hasil[0][i], ':', hasil[1][i], ',', hasil[2][1], '%')
+            </textarea>
+            <label for="floatingTextarea2">02.voting_client.py</label>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+                # import SimpleXMLRPCServer
+                from xmlrpc.server import SimpleXMLRPCServer
+
+                # import SimpleXMLRPCRequestHandler
+                from xmlrpc.server import SimpleXMLRPCRequestHandler
+
+                import threading
+
+                # Batasi hanya pada path /RPC2 saja supaya tidak bisa mengakses path lainnya
+                class RequestHandler(SimpleXMLRPCRequestHandler):
+                    rpc_paths = ('/RPC2',)
+
+                # Buat server
+                with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler=RequestHandler) as server:
+
+                    # buat data struktur dictionary untuk menampung nama_kandidat dan hasil voting
+                    voting = {
+                        "nama_kandidat": [],
+                        "hasil_vote":[]
+                    }
+                    
+                    # kode setelah ini adalah critical section, menambahkan vote tidak boeh terjadi race condition
+                    # siapkan lock
+                    lock = threading.Lock()
+                    
+                    #  buat fungsi bernama vote_candidate()
+                    def vote_candidate(x):
+                        
+                        # critical section dimulai harus dilock
+                        lock.acquire()
+                        # jika kandidat ada dalam dictionary maka tambahkan  nilai votenya
+                        if len(voting['nama_kandidat']) is 0:
+                            voting['nama_kandidat'].append(x)
+                            voting['hasil_vote'].append(1)
+                        else:
+                            for i in range(0, len(voting['nama_kandidat'])):
+                                if voting['nama_kandidat'][i] == x:
+                                    voting['hasil_vote'][i] += 1
+                                break
+                                if (i == len(voting['nama_kandidat'])-1):
+                                    voting['nama_kandidat'].append(x)
+                                    voting['hasil_vote'].append(1)
+
+                        
+                        # critical section berakhir, harus diunlock
+                        lock.release()
+                        return True
+                    
+                    # register fungsi vote_candidate() sebagai vote
+                    server.register_function(vote_candidate,'vote')
+
+                    # buat fungsi bernama querry_result
+                    def querry_result():
+                        # critical section dimulai
+                        lock.acquire()
+                        
+                        # hitung total vote yang ada
+                        total_vote = sum(voting['hasil_vote'])
+                        
+                        # hitung hasil persentase masing-masing kandidat
+                        
+                        
+                        # critical section berakhir
+                        lock.release()  
+                        return [
+                            voting['nama_kandidat'],
+                            voting['hasil_vote'],
+                            
+                        ] 
+                        
+                    # register querry_result sebagai querry
+                    server.register_function(querry_result, 'querry')
+
+
+                    print ("Server voting berjalan...")
+                    # Jalankan server
+            </textarea>
+            <label for="floatingTextarea2">02.voting_server.py</label>
+          </div>
+        </div>
+
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
