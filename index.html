@@ -14,168 +14,222 @@
         <div class="col-md-6 mb-3">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                # import library xmlrpc client karena akan digunakan rpc
-                import xmlrpc.client
-                # buat stub/skeleton (proxy) pada client
-                s = xmlrpc.client.ServerProxy('http://127.0.0.1:8008')
-                # panggil fungsi pow() yang ada di komputer remote 
-                print(s.pow(2,3)) # Returns 2**3 = 8
-                # panggil fungsi add() yang ada di komputer remote
-                print(s.add(2,3)) # Returns 5
-                # panggil fungsi mul() yang ada di komputer remote
-                print(s.mul(5,3)) # Returns 5*2 = 10
-                # print semua fungsi yang ada di komputer remote (optional)
-                print(s.system.listMethods())
+                # import library socket karena menggunakan IPC socket
+                import socket
 
+                # definisikan IP server tujuan file akan diupload
+                TCP_IP = '127.0.0.1'
+
+                # definisikan port number proses di server
+                TCP_PORT = 49343
+
+                # definisikan ukuran buffer untuk mengirim
+                BUFFER_SIZE = 1024
+
+                # buat socket (apakah bertipe UDP atau TCP?)
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+                # lakukan koneksi ke server
+                s.connect((TCP_IP, TCP_PORT))
+
+                # buka file bernama "file_diupload.txt bertipe byte
+                filename='file_diupload.txt'
+                f = open(filename,'rb')
+                # masih hard code, file harus ada dalam folder yang sama dengan script python
+
+
+                try:
+                    byte = f.read(1024)
+                    # baca file tersebut sebesar buffer 
+                    
+                    
+                    # selama tidak END OF FILE; pada pyhton EOF adalah b''
+                    while byte != b'':
+                        # kirim hasil pembacaan file
+                        s.send(byte)
+                        
+                        # baca sisa file hingga EOF
+                        l = f.read(1024)
+                        #print(byte)
+                finally:
+                    print ("end sending")
+                    
+                    # tutup file jika semua file telah  dibaca
+                    f.close()
+
+                # tutup koneksi setelah file terkirim
+                s.close()
             </textarea>
-            <label for="floatingTextarea2">01.voting_client.py</label>
+            <label for="floatingTextarea2">01.upload_file_client.py</label>
           </div>
         </div>
 
         <div class="col-md-6 mb-3">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                # gunakan xmlrpc bagian server
-                # import SimpleXMLRPCServer dan SimpleXMLRPCRequestHandler
-                from xmlrpc.server import SimpleXMLRPCServer
-                from xmlrpc.server import SimpleXMLRPCRequestHandler
-                # buat kelas requesthandler 
-                # batasi pada path /RPC2 saja
-                class RequestHandler(SimpleXMLRPCRequestHandler):
-                rpc_paths = ('/RPC2',)
-                # buat server serta register fungsi 
-                register_introspection_functions()
-                with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler=RequestHandler) as server:
-                    server.register_introspection_functions()
+                # import library socket karena menggunakan IPC socket
+                import socket
 
-                # cara 1 untuk memasukkan fungsi dalam server adalah dengan langsung
-                # memasukkan Namanya.
-                # fungsi pow() merupakan fungsi build in pada pyhton, tinggal
-                # dipanggil saja.
-                server.register_function(pow)
-                # cara 2 untuk register fungsi: buat fungsinya kemudian register
-                # a. buat fungsi
-                def adder_function(x,y):
-                    return x + y
-                # b. register fungsinya
-                server.register_function(adder_function, 'add')
-                # cara 3: tidak hanya fungsi, class juga bisa diregisterkan
-                class MyFuncs:
-                def mul(self, x, y):
-                    return x * y
-                server.register_instance(MyFuncs())
-                # jalankan server
-                server.serve_forever()
+                # definisikan IP untuk binding
+                TCP_IP = "127.0.0.1"
+
+                # definisikan port untuk binding
+                TCP_PORT = 49343
+
+                # definisikan ukuran buffer untuk menerima pesan
+                BUFFER_SIZE = 1024
+
+                # buat socket (bertipe UDP atau TCP?)
+                s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+
+                # lakukan binding ke IP dan port
+                s.bind((TCP_IP,TCP_PORT))
+
+                # lakukan listen
+                s.listen(1)
+
+                #  siap menerima koneksi
+                conn, addr = s.accept()
+                print ('Connection address:', addr)
+
+                # buka/buat file bernama hasil_upload.txt untuk menyimpan hasil dari file yang dikirim server
+                # masih hardcoded nama file, bertipe byte
+                file =open('hasil_upload.txt',"wb")
+
+
+                # loop forever
+                while 1:
+                    # terima pesan dari client
+                    data = conn.recv(1024) 
+                    
+                    
+                    # tulis pesan yang diterima dari client ke file kita (result.txt)
+                    file.write(data)
+                    
+                    # berhenti jika sudah tidak ada pesan yang dikirim
+                    if not data: break
+                    
+                # tutup file result.txt    
+                file.close()
+
+                #tutup socket
+                socket.close()
+
+                # tutup koneksi
+                s.close()
+
 
             </textarea>
-            <label for="floatingTextarea2">01.voting_server.py</label>
+            <label for="floatingTextarea2">01.upload_file_server.py</label>
           </div>
         </div>
 
         <div class="col-md-6 mb-3">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                # import xmlrpc bagian client saja
-                import xmlrpc.client
+                # import library socket karena menggunakan IPC socket
+                import socket
 
-                # buat stub (proxy) untuk client
-                s = xmlrpc.client.ServerProxy('http://127.0.0.1:8008')
+                # definisikan IP server tujuan file akan diupload
+                TCP_IP = "127.0.0.1"
 
-                # lakukan pemanggilan fungsi vote("nama_kandidat") yang ada di server
-                s.vote('Made Mita')
+                # definisikan port number proses di server
+                TCP_PORT = 5005
 
-                # lakukan pemanggilan fungsi querry() untuk mengetahui hasil persentase dari masing-masing kandidat
-                hasil = s.querry()
+                # definisikan ukuran buffer untuk mengirim
+                BUFFER_SIZE = 1024
 
-                # lakukan pemanggilan fungsi lain terserah Anda
-                for i in range(0, len(hasil[0])):
-                    print(hasil[0][i], ':', hasil[1][i], ',', hasil[2][1], '%')
+                # buat socket (apakah bertipe UDP atau TCP?)
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+                # lakukan koneksi ke server
+                s.connect((TCP_IP, TCP_PORT))
+
+                # buka file bernama "hasil_download.txt bertipe byte
+                f = open("./hasil_download.txt", "wb")
+                # masih hard code, file harus ada dalam folder yang sama dengan script python
+
+
+                # loop forever
+                while 1:
+                    # terima pesan dari server
+                    data = s.recv(BUFFER_SIZE)
+                    
+                    # tulis pesan yang diterima dari server ke file telah dibuka sebelumnya (hasil_download.txt)
+                    f.write(data)
+                    
+                    # berhenti jika sudah tidak ada pesan yang dikirim
+                    if not data: break
+                    
+                # tutup hasil_download.txt    
+                f.close()
+
+                #tutup socket
+                s.close()
             </textarea>
-            <label for="floatingTextarea2">02.voting_client.py</label>
+            <label for="floatingTextarea2">02.download_file_client.py</label>
           </div>
         </div>
 
         <div class="col-md-6 mb-3">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                # import SimpleXMLRPCServer
-                from xmlrpc.server import SimpleXMLRPCServer
+                # import library socket karena menggunakan IPC socket
+                from os import close
+                import socket
 
-                # import SimpleXMLRPCRequestHandler
-                from xmlrpc.server import SimpleXMLRPCRequestHandler
+                # definisikan IP untuk binding
+                TCP_IP = "127.0.0.1"
 
-                import threading
+                # definisikan port untuk binding
+                TCP_PORT = 5005
 
-                # Batasi hanya pada path /RPC2 saja supaya tidak bisa mengakses path lainnya
-                class RequestHandler(SimpleXMLRPCRequestHandler):
-                    rpc_paths = ('/RPC2',)
+                # definisikan ukuran buffer untuk menerima pesan
+                BUFFER_SIZE = 1024
 
-                # Buat server
-                with SimpleXMLRPCServer(("127.0.0.1", 8008), requestHandler=RequestHandler) as server:
+                # buat socket (bertipe UDP atau TCP?)
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-                    # buat data struktur dictionary untuk menampung nama_kandidat dan hasil voting
-                    voting = {
-                        "nama_kandidat": [],
-                        "hasil_vote":[]
-                    }
+                # lakukan binding ke IP dan port
+                s.bind((TCP_IP, TCP_PORT))
+
+                # lakukan listen
+                s.listen(1)
+
+                #  siap menerima koneksi
+                conn ,addr = s.accept()
+
+
+                # buka file bernama "file_didownload.txt
+                f = open("file_didownload.txt", '')
+                # masih hard code, file harus ada dalam folder yang sama dengan script python
+
+
+                try:
+                    # baca file tersebut sebesar buffer 
+                    byte = f.read(BUFFER_SIZE)
                     
-                    # kode setelah ini adalah critical section, menambahkan vote tidak boeh terjadi race condition
-                    # siapkan lock
-                    lock = threading.Lock()
+                    # selama tidak END OF FILE; pada pyhton EOF adalah b''
+                    while byte != b'':
+                        # kirim hasil pembacaan file dari server ke client
+                        conn.send(byte)
+                        
+                        # baca sisa file hingga EOF
+                        byte = f.read(BUFFER_SIZE)
+                        
+                finally:
+                    print ("end sending")
                     
-                    #  buat fungsi bernama vote_candidate()
-                    def vote_candidate(x):
-                        
-                        # critical section dimulai harus dilock
-                        lock.acquire()
-                        # jika kandidat ada dalam dictionary maka tambahkan  nilai votenya
-                        if len(voting['nama_kandidat']) is 0:
-                            voting['nama_kandidat'].append(x)
-                            voting['hasil_vote'].append(1)
-                        else:
-                            for i in range(0, len(voting['nama_kandidat'])):
-                                if voting['nama_kandidat'][i] == x:
-                                    voting['hasil_vote'][i] += 1
-                                break
-                                if (i == len(voting['nama_kandidat'])-1):
-                                    voting['nama_kandidat'].append(x)
-                                    voting['hasil_vote'].append(1)
+                    # tutup file jika semua file telah  dibaca
+                    s.close()
 
-                        
-                        # critical section berakhir, harus diunlock
-                        lock.release()
-                        return True
-                    
-                    # register fungsi vote_candidate() sebagai vote
-                    server.register_function(vote_candidate,'vote')
+                # tutup socket
+                s.close()
 
-                    # buat fungsi bernama querry_result
-                    def querry_result():
-                        # critical section dimulai
-                        lock.acquire()
-                        
-                        # hitung total vote yang ada
-                        total_vote = sum(voting['hasil_vote'])
-                        
-                        # hitung hasil persentase masing-masing kandidat
-                        
-                        
-                        # critical section berakhir
-                        lock.release()  
-                        return [
-                            voting['nama_kandidat'],
-                            voting['hasil_vote'],
-                            
-                        ] 
-                        
-                    # register querry_result sebagai querry
-                    server.register_function(querry_result, 'querry')
-
-
-                    print ("Server voting berjalan...")
-                    # Jalankan server
+                # tutup koneksi
+                conn.close()
             </textarea>
-            <label for="floatingTextarea2">02.voting_server.py</label>
+            <label for="floatingTextarea2">02.download_file_server.py</label>
           </div>
         </div>
 
