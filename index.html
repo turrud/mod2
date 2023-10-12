@@ -11,227 +11,206 @@
     <div class="container mt-5">
       <div class="row">
         
-        <div class="col-md-6 mb-3">
+        <div class="col-md-3 mb-3">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                # import library socket karena menggunakan IPC socket
-                import socket
+                public class AmbilMK {
+                private MataKuliah matakuliah;
+                  private Mahasiswa mahasiswa;
+                  private String nilai;
+                  private String tahun_ajaran;
 
-                # definisikan IP server tujuan file akan diupload
-                TCP_IP = '127.0.0.1'
+                public AmbilMK(MataKuliah matakuliah, Mahasiswa mahasiswa, String nilai, String tahun_ajaran) {
+                    this.matakuliah = matakuliah;
+                    this.mahasiswa = mahasiswa;
+                    this.nilai = nilai;
+                    this.tahun_ajaran = tahun_ajaran;
+                }
 
-                # definisikan port number proses di server
-                TCP_PORT = 49343
+                public MataKuliah getMatakuliah() {
+                    return matakuliah;
+                }
 
-                # definisikan ukuran buffer untuk mengirim
-                BUFFER_SIZE = 1024
+                public void setMatakuliah(MataKuliah matakuliah) {
+                    this.matakuliah = matakuliah;
+                }
 
-                # buat socket (apakah bertipe UDP atau TCP?)
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                public Mahasiswa getMahasiswa() {
+                    return mahasiswa;
+                }
 
-                # lakukan koneksi ke server
-                s.connect((TCP_IP, TCP_PORT))
+                public void setMahasiswa(Mahasiswa mahasiswa) {
+                    this.mahasiswa = mahasiswa;
+                }
 
-                # buka file bernama "file_diupload.txt bertipe byte
-                filename='file_diupload.txt'
-                f = open(filename,'rb')
-                # masih hard code, file harus ada dalam folder yang sama dengan script python
+                public String getNilai() {
+                    return nilai;
+                }
 
+                public void setNilai(String nilai) {
+                    this.nilai = nilai;
+                }
 
-                try:
-                    byte = f.read(1024)
-                    # baca file tersebut sebesar buffer 
-                    
-                    
-                    # selama tidak END OF FILE; pada pyhton EOF adalah b''
-                    while byte != b'':
-                        # kirim hasil pembacaan file
-                        s.send(byte)
-                        
-                        # baca sisa file hingga EOF
-                        l = f.read(1024)
-                        #print(byte)
-                finally:
-                    print ("end sending")
-                    
-                    # tutup file jika semua file telah  dibaca
-                    f.close()
+                public String getTahun_ajaran() {
+                    return tahun_ajaran;
+                }
 
-                # tutup koneksi setelah file terkirim
-                s.close()
+                public void setTahun_ajaran(String tahun_ajaran) {
+                    this.tahun_ajaran = tahun_ajaran;
+                }
+                
+            }
             </textarea>
-            <label for="floatingTextarea2">01.upload_file_client.py</label>
+            <label for="floatingTextarea2">AmbilMK.java</label>
           </div>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-3 mb-3">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                # import library socket karena menggunakan IPC socket
-                import socket
-
-                # definisikan IP untuk binding
-                TCP_IP = "127.0.0.1"
-
-                # definisikan port untuk binding
-                TCP_PORT = 49343
-
-                # definisikan ukuran buffer untuk menerima pesan
-                BUFFER_SIZE = 1024
-
-                # buat socket (bertipe UDP atau TCP?)
-                s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-
-                # lakukan binding ke IP dan port
-                s.bind((TCP_IP,TCP_PORT))
-
-                # lakukan listen
-                s.listen(1)
-
-                #  siap menerima koneksi
-                conn, addr = s.accept()
-                print ('Connection address:', addr)
-
-                # buka/buat file bernama hasil_upload.txt untuk menyimpan hasil dari file yang dikirim server
-                # masih hardcoded nama file, bertipe byte
-                file =open('hasil_upload.txt',"wb")
-
-
-                # loop forever
-                while 1:
-                    # terima pesan dari client
-                    data = conn.recv(1024) 
-                    
-                    
-                    # tulis pesan yang diterima dari client ke file kita (result.txt)
-                    file.write(data)
-                    
-                    # berhenti jika sudah tidak ada pesan yang dikirim
-                    if not data: break
-                    
-                # tutup file result.txt    
-                file.close()
-
-                #tutup socket
-                socket.close()
-
-                # tutup koneksi
-                s.close()
-
-
+                public class Mahasiswa {
+                private int nim;
+                private String nama;
+                private String kelas;
+                private String prodi;
+                
+                public Mahasiswa(int nim, String nama, int nokelas) {
+                    setNim(nim);
+                    setNama(nama);
+                    setProdi(nim);
+                    setKelas(nim,nokelas);
+                }
+                
+                public void setNim(int nim){
+                    this.nim= nim;
+                }
+                public void setNama(String nama){
+                    this.nama = nama;
+                }
+                public void setProdi(int nim) {
+                    int temp = Integer.parseInt(String.valueOf(nim).substring(0, 4));
+                    if(temp == 1301)
+                    {
+                        this.prodi = "IF";
+                    }
+                    else if(temp == 1302)
+                    {
+                        this.prodi = "SE";
+                    }
+                    else if(temp == 1303)
+                    {
+                        this.prodi = "IT";
+                    }
+                }
+                
+                public void setKelas(int nim, int nokelas) {
+                    int temp = Integer.parseInt((String.valueOf(nim).substring(4, 6)));
+                    int angkatan;
+                    if (temp >= 00 && temp <= 20) {
+                        angkatan = 2000+temp;
+                    }else if (temp >= 90 && temp <= 99) {
+                        angkatan = 1900+temp;
+                    }else if (temp >- 21 && temp <= 89) {
+                        angkatan = 0;
+                    }else {
+                        angkatan = -1;
+                    }
+                    this.kelas = this.prodi+"-"+angkatan+"-"+nokelas;
+                }
+                public int getNim(){
+                    return this.nim;
+                }
+                public String getNama(){
+                    return this.nama;
+                }
+                public String getKelas(){
+                    return this.kelas;
+                }
+                public String getProdi(){
+                    return this.prodi;
+                }
+            }
             </textarea>
-            <label for="floatingTextarea2">01.upload_file_server.py</label>
+            <label for="floatingTextarea2">Mahasiswa.java</label>
           </div>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-3 mb-3">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                # import library socket karena menggunakan IPC socket
-                import socket
+              package entitas;
+              import java.text.DateFormat;
+              import java.text.ParseException;
+              import java.text.SimpleDateFormat;
+              import java.time.*;
+              import java.util.Date;
 
-                # definisikan IP server tujuan file akan diupload
-                TCP_IP = "127.0.0.1"
+              public class MataKuliah {
+                  private String kode;
+                  private String nama;
+                  private int sks;
 
-                # definisikan port number proses di server
-                TCP_PORT = 5005
-
-                # definisikan ukuran buffer untuk mengirim
-                BUFFER_SIZE = 1024
-
-                # buat socket (apakah bertipe UDP atau TCP?)
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-                # lakukan koneksi ke server
-                s.connect((TCP_IP, TCP_PORT))
-
-                # buka file bernama "hasil_download.txt bertipe byte
-                f = open("./hasil_download.txt", "wb")
-                # masih hard code, file harus ada dalam folder yang sama dengan script python
-
-
-                # loop forever
-                while 1:
-                    # terima pesan dari server
-                    data = s.recv(BUFFER_SIZE)
-                    
-                    # tulis pesan yang diterima dari server ke file telah dibuka sebelumnya (hasil_download.txt)
-                    f.write(data)
-                    
-                    # berhenti jika sudah tidak ada pesan yang dikirim
-                    if not data: break
-                    
-                # tutup hasil_download.txt    
-                f.close()
-
-                #tutup socket
-                s.close()
+                  public MataKuliah(String kode, String nama, int sks){
+                      this.kode = kode;
+                      this.nama = nama;
+                      this.sks = sks;
+                  }
+                  public final void setKode(String kode){
+                      this.kode = kode;
+                  }
+                  public final void setNama(String nama){
+                      this.nama= nama;
+                  }
+                  public final void setSKS(int sks){
+                      this.sks = sks;
+                  }
+                  public String getKode(){
+                      return this.kode;
+                  }
+                  public String getNama(){
+                      return this.nama;
+                  }
+                  public int getSKS(){
+                      return this.sks;
+                  }
+              }
             </textarea>
-            <label for="floatingTextarea2">02.download_file_client.py</label>
+            <label for="floatingTextarea2">MataKuliah.java</label>
           </div>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-3 mb-3">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                # import library socket karena menggunakan IPC socket
-                from os import close
-                import socket
-
-                # definisikan IP untuk binding
-                TCP_IP = "127.0.0.1"
-
-                # definisikan port untuk binding
-                TCP_PORT = 5005
-
-                # definisikan ukuran buffer untuk menerima pesan
-                BUFFER_SIZE = 1024
-
-                # buat socket (bertipe UDP atau TCP?)
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-                # lakukan binding ke IP dan port
-                s.bind((TCP_IP, TCP_PORT))
-
-                # lakukan listen
-                s.listen(1)
-
-                #  siap menerima koneksi
-                conn ,addr = s.accept()
-
-
-                # buka file bernama "file_didownload.txt
-                f = open("file_didownload.txt", '')
-                # masih hard code, file harus ada dalam folder yang sama dengan script python
-
-
-                try:
-                    # baca file tersebut sebesar buffer 
-                    byte = f.read(BUFFER_SIZE)
+                    MataKuliah pbo;
+                    MataKuliah aplat;
+                    MataKuliah apb;
                     
-                    # selama tidak END OF FILE; pada pyhton EOF adalah b''
-                    while byte != b'':
-                        # kirim hasil pembacaan file dari server ke client
-                        conn.send(byte)
-                        
-                        # baca sisa file hingga EOF
-                        byte = f.read(BUFFER_SIZE)
-                        
-                finally:
-                    print ("end sending")
+                    pbo = new MataKuliah("CII3B4","Pemrograman Berorientasi Objek",4);
+                    aplat = new MataKuliah("CII3H4","Aplikasi Berbasis Platform",4);
+                    apb = new MataKuliah("CTI3I3","Aplikasi {erangkat Bergerak",3);
                     
-                    # tutup file jika semua file telah  dibaca
-                    s.close()
-
-                # tutup socket
-                s.close()
-
-                # tutup koneksi
-                conn.close()
+                    Mahasiswa mhs1;
+                    Mahasiswa mhs2;
+                    
+                    mhs1 = new Mahasiswa(1302091000,"Bertholdt Hoover",1);
+                    mhs2 = new Mahasiswa(1303209999,"Reiner Braun",12);
+                    
+                    AmbilMK[] ambilmk = new AmbilMK[7];
+                    
+                    ambilmk[0] = new AmbilMK(mhs1,pbo,"A","20/21");
+                    ambilmk[1] = new AmbilMK(mhs1,aplat,"C","20/21");
+                    ambilmk[2] = new AmbilMK(mhs1,apb,"AB","20/21");
+                    ambilmk[3] = new AmbilMK(mhs2,pbo,"B","20/21");
+                    ambilmk[4] = new AmbilMK(mhs2,aplat,"A","20/21");
+                    ambilmk[5] = new AmbilMK(mhs2,apb,"BC","19/20");
+                    ambilmk[6] = new AmbilMK(mhs2,aplat,"D","19/20");
             </textarea>
-            <label for="floatingTextarea2">02.download_file_server.py</label>
+            <label for="floatingTextarea2">Driver</label>
           </div>
         </div>
+
+
 
       </div>
     </div>
