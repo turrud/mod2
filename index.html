@@ -11,202 +11,256 @@
     <div class="container mt-5">
       <div class="row">
         
-        <div class="col-md-3 mb-3">
+        <div class="col-md-3 mb-4">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                public class AmbilMK {
-                private MataKuliah matakuliah;
-                  private Mahasiswa mahasiswa;
-                  private String nilai;
-                  private String tahun_ajaran;
+                # import paho mqtt
+                import paho.mqtt.client as mqtt
+                # import time untuk sleep()
+                import time
+                # import datetime untuk mendapatkan waktu dan tanggal
+                import datetime
 
-                public AmbilMK(MataKuliah matakuliah, Mahasiswa mahasiswa, String nilai, String tahun_ajaran) {
-                    this.matakuliah = matakuliah;
-                    this.mahasiswa = mahasiswa;
-                    this.nilai = nilai;
-                    this.tahun_ajaran = tahun_ajaran;
-                }
+                # buat callback on_publish untuk publish data
+                ########################################
+                def on_publish(client,userdata,result):             
+                    print("data published \n")
+                ########################################
 
-                public MataKuliah getMatakuliah() {
-                    return matakuliah;
-                }
+                # definisikan nama broker yang akan digunakan
+                broker_address="localhost"
 
-                public void setMatakuliah(MataKuliah matakuliah) {
-                    this.matakuliah = matakuliah;
-                }
+                # buat client baru bernama P2
+                print("creating new instance")
+                client = mqtt.Client("P2")
 
-                public Mahasiswa getMahasiswa() {
-                    return mahasiswa;
-                }
+                # kaitkan callback on_publish ke client
+                client.on_publish=on_publish
 
-                public void setMahasiswa(Mahasiswa mahasiswa) {
-                    this.mahasiswa = mahasiswa;
-                }
+                # lakukan koneksi ke broker
+                print("connecting to broker")
+                client.connect(broker_address, port=3333)
 
-                public String getNilai() {
-                    return nilai;
-                }
+                # mulai loop client
+                client.loop_start()
 
-                public void setNilai(String nilai) {
-                    this.nilai = nilai;
-                }
+                # lakukan 20x publish waktu dengan topik "waktu"
+                for i in range (20):
 
-                public String getTahun_ajaran() {
-                    return tahun_ajaran;
-                }
+                    # sleep 1 detik
+                    time.sleep(1)
+                    # client melakukan publish data dengan topik "waktu"
+                    print("Publishing message to topic","waktu")
+                    client.publish("waktu","OFF")   
 
-                public void setTahun_ajaran(String tahun_ajaran) {
-                    this.tahun_ajaran = tahun_ajaran;
-                }
-                
-            }
+                #stop loop
+                client.loop_stop()
+
+
             </textarea>
-            <label for="floatingTextarea2">AmbilMK.java</label>
+            <label for="floatingTextarea2">1.client_pub.py</label>
           </div>
         </div>
 
-        <div class="col-md-3 mb-3">
+        <div class="col-md-3 mb-4">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                public class Mahasiswa {
-                private int nim;
-                private String nama;
-                private String kelas;
-                private String prodi;
-                
-                public Mahasiswa(int nim, String nama, int nokelas) {
-                    setNim(nim);
-                    setNama(nama);
-                    setProdi(nim);
-                    setKelas(nim,nokelas);
-                }
-                
-                public void setNim(int nim){
-                    this.nim= nim;
-                }
-                public void setNama(String nama){
-                    this.nama = nama;
-                }
-                public void setProdi(int nim) {
-                    int temp = Integer.parseInt(String.valueOf(nim).substring(0, 4));
-                    if(temp == 1301)
-                    {
-                        this.prodi = "IF";
-                    }
-                    else if(temp == 1302)
-                    {
-                        this.prodi = "SE";
-                    }
-                    else if(temp == 1303)
-                    {
-                        this.prodi = "IT";
-                    }
-                }
-                
-                public void setKelas(int nim, int nokelas) {
-                    int temp = Integer.parseInt((String.valueOf(nim).substring(4, 6)));
-                    int angkatan;
-                    if (temp >= 00 && temp <= 20) {
-                        angkatan = 2000+temp;
-                    }else if (temp >= 90 && temp <= 99) {
-                        angkatan = 1900+temp;
-                    }else if (temp >- 21 && temp <= 89) {
-                        angkatan = 0;
-                    }else {
-                        angkatan = -1;
-                    }
-                    this.kelas = this.prodi+"-"+angkatan+"-"+nokelas;
-                }
-                public int getNim(){
-                    return this.nim;
-                }
-                public String getNama(){
-                    return this.nama;
-                }
-                public String getKelas(){
-                    return this.kelas;
-                }
-                public String getProdi(){
-                    return this.prodi;
-                }
-            }
+                # import paho mqtt
+                import paho.mqtt.client as mqtt
+
+                # import time for sleep()
+                import time
+
+                # buat callback on_message; jika ada pesan
+                # maka fungsi ini akan dipanggil secara asynch
+                ########################################
+                def on_message(client, userdata, message):
+                    print("message received " ,
+                    str(message.payload.decode("utf-8")))
+                ########################################
+                    
+                # buat definisi nama broker yang akan digunakan
+                broker_address="localhost"
+
+                # buat client baru bernama P1
+                print("creating new instance")
+                client = mqtt.Client("P1")
+
+                # kaitkan callback on_message ke client
+                client.on_message=on_message
+
+                # buat koneksi ke broker
+                print("connecting to broker")
+                client.connect(broker_address, port=3333)
+
+                # jalankan loop client
+                client.loop_start()
+                # print topik yang disubscribe (dalam konteks ini, "waktu")
+                print("Subscribing to topic","waktu")
+                # loop forever
+                while True:
+                    # client melakukan subscribe ke topik "waktu"
+                    client.subscribe("waktu")
+                    # berikan waktu tunggu 1 detik 
+                    time.sleep(1)
+
+                #stop loop
+                client.loop_stop()
             </textarea>
-            <label for="floatingTextarea2">Mahasiswa.java</label>
+            <label for="floatingTextarea2">1.client_sub.py</label>
           </div>
         </div>
 
-        <div class="col-md-3 mb-3">
+        <div class="col-md-3 mb-4">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-              package entitas;
-              import java.text.DateFormat;
-              import java.text.ParseException;
-              import java.text.SimpleDateFormat;
-              import java.time.*;
-              import java.util.Date;
+              # import paho mqtt
+                import paho.mqtt.client as mqtt
+                # import time untuk sleep()
+                import time
+                # import datetime untuk mendapatkan waktu dan tanggal
+                import datetime
+                # buat callback on_publish untuk publish data
+                ########################################
+                def on_publish(client,userdata,result):             
+                    print("data published \n")
 
-              public class MataKuliah {
-                  private String kode;
-                  private String nama;
-                  private int sks;
+                ########################################
 
-                  public MataKuliah(String kode, String nama, int sks){
-                      this.kode = kode;
-                      this.nama = nama;
-                      this.sks = sks;
-                  }
-                  public final void setKode(String kode){
-                      this.kode = kode;
-                  }
-                  public final void setNama(String nama){
-                      this.nama= nama;
-                  }
-                  public final void setSKS(int sks){
-                      this.sks = sks;
-                  }
-                  public String getKode(){
-                      return this.kode;
-                  }
-                  public String getNama(){
-                      return this.nama;
-                  }
-                  public int getSKS(){
-                      return this.sks;
-                  }
-              }
+                # definisikan nama broker yang akan digunakan
+                broker_address="localhost"
+                # buat client baru bernama P2
+                print("creating new instance")
+                client = mqtt.Client("P2")
+                # kaitkan callback on_publish ke client
+                client.on_publish=on_publish
+                # koneksi ke broker
+                print("connecting to broker")
+                client.connect(broker_address, port=3333)
+
+                # mulai loop client
+                client.loop_start()
+                # lakukan 20x publish topik "topik_1"
+                for i in range (20):
+                    # sleep 1 detik
+                    time.sleep(1)
+                    # publish waktu sekarang dengan topik "topik_1" (SESUAIKAN DENGAN FORMAT DI SOAL)
+                    print("Publishing message to topic","topik_1")
+                    client.publish("topik_1","OFF")   
+
+                #stop loop
+                client.loop_stop()
+
             </textarea>
-            <label for="floatingTextarea2">MataKuliah.java</label>
+            <label for="floatingTextarea2">2.client_pub_A.py</label>
           </div>
         </div>
 
-        <div class="col-md-3 mb-3">
+        <div class="col-md-3 mb-4">
           <div class="form-floating">
             <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
-                    MataKuliah pbo;
-                    MataKuliah aplat;
-                    MataKuliah apb;
+                    # import paho mqtt
+                import paho.mqtt.client as mqtt
+
+                # import time untuk sleep()
+                import time
+
+                # import random dari library numpy
+                import np as numpy
+
+                # buat callback on_publish untuk publish data
+                ########################################
+                def on_publish(client,userdata,result):             
+                    print("data published \n")
+
+                ########################################
+
+                # definisikan nama broker yang akan digunakan
+                broker_address="localhost"
+
+                # buat client baru bernama P3
+                print("creating new instance")
+                client = mqtt.Client("P3")
+
+                # kaitkan callback on_publish ke client
+                client.on_publish=on_publish
+
+                # koneksi ke broker
+                print("connecting to broker")
+                client.connect(broker_address, port=3333)
+
+                # mulai loop client
+                client.loop_start()
+                # lakukan 20x publish topik "topik_2"
+                for i in range (20):
+                    # sleep 1 detik
+                    time.sleep(1)
+                    # munculkan angka random
                     
-                    pbo = new MataKuliah("CII3B4","Pemrograman Berorientasi Objek",4);
-                    aplat = new MataKuliah("CII3H4","Aplikasi Berbasis Platform",4);
-                    apb = new MataKuliah("CTI3I3","Aplikasi {erangkat Bergerak",3);
-                    
-                    Mahasiswa mhs1;
-                    Mahasiswa mhs2;
-                    
-                    mhs1 = new Mahasiswa(1302091000,"Bertholdt Hoover",1);
-                    mhs2 = new Mahasiswa(1303209999,"Reiner Braun",12);
-                    
-                    AmbilMK[] ambilmk = new AmbilMK[7];
-                    
-                    ambilmk[0] = new AmbilMK(mhs1,pbo,"A","20/21");
-                    ambilmk[1] = new AmbilMK(mhs1,aplat,"C","20/21");
-                    ambilmk[2] = new AmbilMK(mhs1,apb,"AB","20/21");
-                    ambilmk[3] = new AmbilMK(mhs2,pbo,"B","20/21");
-                    ambilmk[4] = new AmbilMK(mhs2,aplat,"A","20/21");
-                    ambilmk[5] = new AmbilMK(mhs2,apb,"BC","19/20");
-                    ambilmk[6] = new AmbilMK(mhs2,aplat,"D","19/20");
+                    # publish angka yang muncul dengan topik "topik_2" (SESUAIKAN DENGAN FORMAT DI SOAL)
+                    print("Publishing number with topic","topik_2")
+                    client.publish("topik_1","OFF")
+
+                #stop loop
+                client.loop_stop()
+
             </textarea>
-            <label for="floatingTextarea2">Driver</label>
+            <label for="floatingTextarea2">2.client_pub_B.py</label>
+          </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+          <div class="form-floating">
+            <textarea cols="auto" rows="auto" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">
+                    # import paho mqtt
+                import paho.mqtt.client as mqtt
+
+                # import time for sleep()
+                import time
+
+                # buat callback on_message; jika ada pesan
+                # maka fungsi ini akan dipanggil secara asynch
+                ########################################
+                def on_message(client, userdata, message):
+                    print("message received " ,
+                    str(message.payload.decode("utf-8")))
+                ########################################
+                    
+                # buat definisi nama broker yang akan digunakan
+                broker_address="localhost"
+
+
+                # buat client baru bernama P1
+                print("creating new instance")
+                client = mqtt.Client("P1")
+
+                # kaitkan callback on_message ke client
+                client.on_message=on_message
+
+                # buat koneksi ke broker
+                print("connecting to broker")
+                client.connect(broker_address, port=3333)
+
+                # jalankan loop client
+                client.loop_start()
+
+                # print topik yang disubscribe (dalam konteks ini, "topik_1" dan "topik_2")
+                print("Subscribing to topic","topik_1")
+                print("Subscribing to topic","topik_2")
+
+                # loop forever
+                while True:
+                    # berikan waktu tunggu 1 detik
+                    time.sleep(1)
+                    # client melakukan subscribe ke topik 1 dan topik 2   
+                    client.subscribe("topik_1")
+                    client.subscribe("topik_2")
+                    
+
+                #stop loop
+                client.loop_stop()
+            </textarea>
+            <label for="floatingTextarea2">2.client_sub.py</label>
           </div>
         </div>
 
